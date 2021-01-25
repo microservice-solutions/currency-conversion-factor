@@ -35,7 +35,7 @@ public class CurrencyFactorController {
 		
 		repository.save(model);
 		
-		return new ResponseEntity<CurrencyFactorModel>(model, HttpStatus.OK);
+		return new ResponseEntity<CurrencyFactorModel>(model, HttpStatus.CREATED);
 	}
 
 	
@@ -59,7 +59,7 @@ public class CurrencyFactorController {
 			repository.save(result);
 		}
 		
-		return new ResponseEntity<CurrencyFactorModel>(result, HttpStatus.OK);
+		return new ResponseEntity<CurrencyFactorModel>(result, HttpStatus.CREATED);
 	}
 	
 	@GetMapping public ResponseEntity<CurrencyFactorModel> getConversionFactor(@RequestParam(name = "country") String country) {
@@ -76,6 +76,8 @@ public class CurrencyFactorController {
 		Optional<CurrencyFactorModel> models = repository.findOne(example);
 		if (models.isPresent()) {
 			result = models.get();
+		} else {
+			return ResponseEntity.notFound().build();
 		}
 		
 		return new ResponseEntity<CurrencyFactorModel>(result,HttpStatus.OK);
