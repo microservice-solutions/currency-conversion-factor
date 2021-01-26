@@ -29,3 +29,5 @@ jobs:
         with:
           name: currency-conversion-factor
           path: staging
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag currency-conversion-factor:latest
