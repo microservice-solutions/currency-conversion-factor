@@ -1,4 +1,4 @@
-# currency-conversion-factor
+### currency-conversion-factor
 
 The project is built using Github Actions.\
 A docker image is also created for this project and is pushed in docker hub microservicesolutions/currency-conversion-factor:latest
@@ -9,7 +9,7 @@ http://localhost:8080/swagger-ui/
 
 
 The docker image can be pulled using:\
-docker pull microservicesolutions/currency-conversion-factor
+`docker pull microservicesolutions/currency-conversion-factor`
 
 The docker image can be run using:\
-docker run -dt -p 8080:8080 microservicesolutions/currency-conversion-factor
+`docker run -dt -p 8080:8080 microservicesolutions/currency-conversion-factor`
