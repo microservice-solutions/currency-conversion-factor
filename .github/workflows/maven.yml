@@ -22,13 +22,13 @@ jobs:
         run: mvn -B package --file pom.xml
       - name: Verify artifact
         run: mvn --batch-mode --update-snapshots verify
-      - name: Copy JAR to staging folder
-        run: mkdir staging && cp target/*.jar staging
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: currency-conversion-factor
-          path: staging
+#     - name: Copy JAR to staging folder
+#       run: mkdir staging && cp target/*.jar staging
+#     - name: Upload build artifact
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: currency-conversion-factor
+#         path: staging
 #     - name: Build the Docker image
 #       run: docker build . --file Dockerfile --tag microservicesolutions/currency-conversion-factor:latest
       - name: Set up QEMU
