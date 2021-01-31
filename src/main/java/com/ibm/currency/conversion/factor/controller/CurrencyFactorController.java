@@ -2,6 +2,8 @@ package com.ibm.currency.conversion.factor.controller;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -22,6 +24,8 @@ import com.ibm.currency.conversion.factor.repository.CurrencyFactorRepository;
 @RequestMapping(path = "/currency/conversion/factor")
 public class CurrencyFactorController {
 	
+	private static final Logger log = LoggerFactory.getLogger(CurrencyFactorController.class);
+	
 	@Autowired
 	CurrencyFactorRepository repository;
 	
@@ -29,10 +33,14 @@ public class CurrencyFactorController {
 	@ResponseStatus(code = HttpStatus.OK)
 	public ResponseEntity<CurrencyFactorModel> addConversionFactor(
 			@RequestParam(name = "country") String country, @RequestParam(name = "factor") float factor) {
+		
+		log.info("Received request for adding conversion factor with country {} & factor {}", country, factor);
+		
 		CurrencyFactorModel model = new CurrencyFactorModel();
 		model.setCountryCode(country);
 		model.setConversionFactor(factor);
 		
+		log.info("Saving currency conversion factor with country {} & factor {}", country, factor);
 		repository.save(model);
 		
 		return new ResponseEntity<CurrencyFactorModel>(model, HttpStatus.CREATED);
@@ -41,6 +49,9 @@ public class CurrencyFactorController {
 	
 	@PutMapping public ResponseEntity<CurrencyFactorModel> updateConversionFactor(
 			@RequestParam(name = "country") String country, @RequestParam(name = "factor") float factor) {
+		
+		log.info("Received request for updating conversion factor with country {} & factor {}", country, factor);
+		
 		CurrencyFactorModel model = new CurrencyFactorModel();                         
 		model.setCountryCode(country);
 
@@ -56,6 +67,7 @@ public class CurrencyFactorController {
 			result = models.get();
 			result.setConversionFactor(factor);
 			
+			log.info("Updating currency conversion factor with country {} & factor {}", country, factor);
 			repository.save(result);
 		}
 		
@@ -63,6 +75,9 @@ public class CurrencyFactorController {
 	}
 	
 	@GetMapping public ResponseEntity<CurrencyFactorModel> getConversionFactor(@RequestParam(name = "country") String country) {
+		
+		log.info("Received request for get conversion factor with country {}", country);
+		
 		CurrencyFactorModel model = new CurrencyFactorModel();                         
 		model.setCountryCode(country);
 
@@ -76,7 +91,11 @@ public class CurrencyFactorController {
 		Optional<CurrencyFactorModel> models = repository.findOne(example);
 		if (models.isPresent()) {
 			result = models.get();
+			
+			log.info("Retrieved conversion factor {} for country {}", result.getConversionFactor(), result.getCountryCode());
 		} else {
+			log.info("Could not find entry for country {}", country);
+			
 			return ResponseEntity.notFound().build();
 		}
 		
