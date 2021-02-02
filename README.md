@@ -1,5 +1,7 @@
 ### currency-conversion-factor
 
+![GH Build](https://img.shields.io/github/workflow/status/microservice-solutions/currency-conversion-factor/Java%20CI%20with%20Maven?label=GH%20Build)
+
 The project is built using Github Actions.\
 A docker image is also created for this project and is pushed in docker hub microservicesolutions/currency-conversion-factor:latest
 
