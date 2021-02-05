@@ -6,7 +6,9 @@ name: Java CI with Maven
 on:
   push:
     branches: [ main ]
-
+    paths-ignore:
+      - k8s/**
+      - README.md
 jobs:
   build:
 
