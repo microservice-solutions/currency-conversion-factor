@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currency-conversion-factor
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: currency-conversion-factor
+  template:
+    metadata:
+      labels:
+        app: currency-conversion-factor
+    spec:
+      containers:
+      - name: currency-conversion-factor
+        image: microservicesolutions/currency-conversion-factor:latest
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
